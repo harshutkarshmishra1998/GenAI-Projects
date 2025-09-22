@@ -1,3 +1,4 @@
+import os
 import streamlit as st
 import numpy as np
 import tensorflow as tf
@@ -6,7 +7,9 @@ import pandas as pd
 import pickle
 
 # Load the trained model
-model = tf.keras.models.load_model('6-model.h5')
+MODEL_PATH = os.path.join(os.path.dirname(__file__), '6-model.h5')
+model = tf.keras.models.load_model(MODEL_PATH)
+# model = tf.keras.models.load_model('6-model.h5')
 
 # Load the encoders and scaler
 with open('3-label_encoder_gender.pkl', 'rb') as file:
