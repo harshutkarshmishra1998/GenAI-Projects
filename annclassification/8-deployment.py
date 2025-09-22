@@ -1,4 +1,5 @@
 import os
+from pathlib import Path
 import streamlit as st
 import numpy as np
 import tensorflow as tf
@@ -11,16 +12,23 @@ MODEL_PATH = os.path.join(os.path.dirname(__file__), '6-model.h5')
 model = tf.keras.models.load_model(MODEL_PATH)
 # model = tf.keras.models.load_model('6-model.h5')
 
+# Base directory of the current script
+BASE_DIR = Path(__file__).parent
+
+# Paths to files
+gender_encoder_path = BASE_DIR / "3-label_encoder_gender.pkl"
+geo_encoder_path = BASE_DIR / "4-onehot_encoder_geo.pkl"
+scaler_path = BASE_DIR / "5-scaler.pkl"
+
 # Load the encoders and scaler
-with open('3-label_encoder_gender.pkl', 'rb') as file:
+with open(gender_encoder_path, 'rb') as file:
     label_encoder_gender = pickle.load(file)
 
-with open('4-onehot_encoder_geo.pkl', 'rb') as file:
+with open(geo_encoder_path, 'rb') as file:
     onehot_encoder_geo = pickle.load(file)
 
-with open('5-scaler.pkl', 'rb') as file:
+with open(scaler_path, 'rb') as file:
     scaler = pickle.load(file)
-
 
 ## streamlit app
 st.title('Customer Churn Prediction')
